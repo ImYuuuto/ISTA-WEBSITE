@@ -1,0 +1,218 @@
+:root {
+    --ofppt-blue: #0a2540;
+    --ofppt-green: #1fa67a;
+    --light-bg: #f5f7fa;
+    --text-dark: #222;
+    --text-muted: #666;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.7;
+}
+
+h2,
+h5 {
+    font-weight: 600;
+}
+
+/* ================= NAVBAR ================= */
+
+
+.dropdown-menu {
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= HEADER ================= */
+.header-section {
+    position: relative;
+    height: 50vh;
+    background: linear-gradient(135deg, #000000 0%, #0a2540 100%);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+/* Optional: if we want a static image background instead of video
+.header-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('../assets/images/team-bg.jpg') center/cover;
+    opacity: 0.4;
+}
+*/
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeDown 1s ease-out;
+}
+
+.header-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #ffffff, #2ecc71);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header-subtitle {
+    font-size: 1.3rem;
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* ================= TEAM CARDS ================= */
+.section-title {
+    color: var(--ofppt-blue);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--ofppt-green);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.team-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.team-img-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 30px auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-img {
+    transform: scale(1.1);
+}
+
+.team-name {
+    color: var(--ofppt-blue);
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 1.25rem;
+}
+
+.team-role {
+    color: var(--ofppt-green);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-specialties {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.team-specialties span {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin: 2px;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: var(--ofppt-blue);
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    background: var(--ofppt-green);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* ================= FOOTER ================= */
+.footer-custom {
+    background: linear-gradient(135deg, #0A2540, #2E8B57);
+}
+
+.footer-title {
+    color: #2ecc71;
+    margin-bottom: 15px;
+}
+
+.social-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.social-link:hover {
+    color: #2ecc71;
+    text-decoration: underline;
+}
+
+
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,158 @@
+/* ================= GLOBAL ================= */
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* ================= HEADER ================= */
+
+
+.dropdown-menu {
+    background-color: #ffffff;
+}
+
+.dropdown-item {
+    color: #0a2540;
+}
+
+.dropdown-item:hover {
+    background-color: #2ecc71;
+    color: #ffffff;
+}
+
+.btn-search {
+    border-color: #2ecc71;
+    color: #2ecc71;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-search:hover {
+    background-color: #2ecc71;
+    color: #f8f8f8;
+}
+
+.search-input {
+    border-color: #2ecc71;
+}
+
+/* ================= HERO ================= */
+.auth-hero {
+    height: 35vh;
+    background: linear-gradient(rgba(10, 37, 64, .8), rgba(10, 37, 64, .8)),
+        url("../images/indexmain/ofppt-campus.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.auth-hero h1 {
+    font-weight: 700;
+}
+
+.auth-hero p {
+    font-size: 1.2rem;
+}
+
+/* ================= CARDS & FORMS ================= */
+/* Base hidden state - takes NO space */
+.card-custom {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    margin-bottom: 0 !important;
+    border: none;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+/* Active visible state - full height and visible */
+.card-custom.show {
+    /* max-height handled by JS */
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 3rem !important;
+    /* Restore original spacing */
+    border-top: 4px solid #2ecc71;
+    pointer-events: auto;
+}
+
+.btn-custom {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #27ae60;
+}
+
+/* Active choice button */
+.choice-btn.active {
+    background-color: #2ecc71 !important;
+    color: white !important;
+    border-color: #2ecc71 !important;
+}
+
+/* Labels & inputs */
+label {
+    font-weight: 500;
+}
+
+input.form-control,
+select.form-select {
+    border: 1px solid #2ecc71;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input.form-control:focus,
+select.form-select:focus {
+    border-color: #27ae60;
+    box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
+}
+
+/* Forgot password link */
+.forgot-link-icon {
+    display: block;
+    font-weight: 500;
+    text-decoration: none;
+    color: #0a2540;
+    transition: all 0.3s ease;
+}
+
+.forgot-link-icon:hover {
+    color: #27ae60;
+}
+
+/* ================= FOOTER ================= */
+.footer-custom {
+    background: linear-gradient(135deg, #0A2540, #2E8B57);
+}
+
+.footer-title {
+    color: #2ecc71;
+    margin-bottom: 15px;
+}
+
+.social-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.social-link:hover {
+    color: #2ecc71;
+    text-decoration: underline;
+}
