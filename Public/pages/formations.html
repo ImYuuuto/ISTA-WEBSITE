@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formations</title>
+    <link rel="stylesheet" href="../assets/libs/bootstrap/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/Prodesfilli.css" />
+    <link rel="stylesheet" href="../assets/css/search_bar.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="../assets/images/indexmain/Logo_ofppt.png" width="50" alt="Logo OFPPT" class="me-2 rounded-circle">
+                <span>Établissement</span>
+            </a>
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="activities.html">Vie Active</a></li>
+                    <li class="nav-item"><a class="nav-link" href="formateurs.html">Formateurs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inscrire.html">M'inscrire</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="formations.html">Formations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+
+                <form class="d-flex position-relative" role="search" autocomplete="off">
+                    <input id="searchInput" class="form-control me-2 search-input" type="search" placeholder="Rechercher une filière"/>
+                    <button class="btn btn-search" type="submit">Search</button>
+                    <!-- Suggestions -->
+                    <ul id="searchSuggestions" class="list-group position-absolute w-100"></ul>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- VIDEO BACKGROUND FAIBLE HEIGHT (HEADER ONLY) -->
+    <div class="video-bg">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="../assets/videos/bg.mp4" type="video/mp4" />
+      </video>
+
+      <!-- CONTENT OVER VIDEO -->
+      <div class="video-content text-center">
+        <h1 class="animate-text">Bienvenue à MyWay (L510)</h1>
+        <p class="animate-text1">
+          Centre de formation professionnelle orienté métier
+        </p>
+      </div>
+    </div>
+
+    <section class="orientation-section py-5">
+      <div class="container text-center">
+        <h2 class="section-title mb-5 fade-up">
+          Une orientation personnalisée <br />
+          <span>pour réussir votre projet professionnel</span>
+        </h2>
+
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-md-4">
+            <div
+              class="orientation-card fade-up delay-1 text-center"
+              data-aos="fade-up"
+              data-aos-delay="0"
+            >
+              <i class="fa-solid fa-compass orientation-icon"></i>
+              <h5>Une orientation complète et adaptée</h5>
+              <p>
+                Une plateforme ludique mise à votre disposition pour explorer
+                vos possibilités de carrière et tracer le parcours qui vous
+                convient.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div
+              class="orientation-card fade-up delay-2 text-center"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <i class="fa-solid fa-user-graduate orientation-icon"></i>
+              <h5>Un accompagnement personnalisé</h5>
+              <p>
+                Faites confiance à nos conseillers pour vous accompagner dans
+                votre réflexion et vous appuyer dans vos démarches.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div
+              class="orientation-card fade-up delay-3 text-center"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <i class="fa-solid fa-id-card orientation-icon"></i>
+              <h5>Un compte unique pour votre parcours</h5>
+              <p>
+                Connectez-vous à votre espace My Way et accédez à une panoplie
+                de services pour piloter votre projet professionnel.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <h1 class="text-center filier">
+        Votre avenir commence avec nos filières
+      </h1>
+    </div>
+
+    <div class="container my-5">
+      <div class="row g-4 justify-content-center">
+        <!-- CARD 1 -->
+        <div class="col-md-4 reveal" id="dev-digital" data-aos="fade-up">
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Développement Digital</h5>
+              <p class="card-text">
+                Développement web, applications et programmation. Cette
+                formation vous prépare aux métiers du numérique en vous offrant
+                des compétences solides en développement web, développement
+                d’applications et programmation...
+              </p>
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="development.html"> Voir plus </a>
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#dev"
+                  >Voir le programme</a
+                >
+              </div>
+              <div class="collapse mt-2" id="dev">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">HTML, CSS, JavaScript</li>
+                  <li class="list-group-item">React, Angular</li>
+                  <li class="list-group-item">Node.js, PHP</li>
+                  <li class="list-group-item">MySQL, MongoDB</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-4 reveal" id="infra-systemes" data-aos="fade-up" data-aos-delay="100"> 
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image2.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Infrastructure & Systèmes</h5>
+              <p class="card-text">
+                Réseaux, sécurité et cloud.Le tronc commun en infrastructure
+                digitale permet aux stagiaires de concevoir, administrer,
+                optimiser, et sécuriser des architectures et infrastructures IT.
+                Au cours de cette étape, qui dure une année de...
+              </p>
+        
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="infra.html"> Voir plus </a>
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#infra"
+                  >Voir le programme</a
+                >
+              </div>
+        
+              <div class="collapse mt-2" id="infra">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Administration systèmes</li>
+                  <li class="list-group-item">Sécurité réseau</li>
+                  <li class="list-group-item">Virtualisation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-4 reveal" id="gestion" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image3.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Gestion des Entreprises</h5>
+              <p class="card-text">
+                Management, finance et marketing.Cette formation vous prépare
+                aux métiers de la gestion et du management en vous apportant des
+                compétences solides en management, finance et marketing. V
+                efficacement les activités d’une entreprise...
+              </p>
+        
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="development.html"> Voir plus </a>
+        
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#dev"
+                >
+                  Voir le programme
+                </a>
+              </div>
+              <div class="collapse mt-2" id="gestion">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Management</li>
+                  <li class="list-group-item">Comptabilité</li>
+                  <li class="list-group-item">Marketing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="col-md-4 reveal" data-aos="fade-up">
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image4.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Marketing Digital</h5>
+              <p class="card-text">
+                Réseaux sociaux, publicité en ligne et branding.Cette formation
+                vous permet d’acquérir les compétences essentielles en marketing
+                digital, notamment la gestion des réseaux sociaux, la publicité
+                en ligne et...
+              </p>
+        
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="development.html"> Voir plus </a>
+        
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#dev"
+                >
+                  Voir le programme
+                </a>
+              </div>
+        
+              <div class="collapse mt-2" id="marketing">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">SEO & SEM</li>
+                  <li class="list-group-item">Publicité Facebook & Google</li>
+                  <li class="list-group-item">Email marketing</li>
+                  <li class="list-group-item">Stratégie digitale</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="col-md-4 reveal" data-aos="fade-up" data-aos-delay="100">
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image5.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Ressources Humaines</h5>
+              <p class="card-text">
+                Gestion du personnel et administration RH.Cette formation vous
+                prépare aux fonctions clés des ressources humaines, notamment la
+                gestion du personnel et l’administration RH. Vous apprendrez à
+                ...
+              </p>
+        
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="development.html"> Voir plus </a>
+        
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#dev"
+                >
+                  Voir le programme
+                </a>
+              </div>
+        
+              <div class="collapse mt-2" id="rh">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Recrutement</li>
+                  <li class="list-group-item">Gestion de la paie</li>
+                  <li class="list-group-item">Formation du personnel</li>
+                  <li class="list-group-item">Relations sociales</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="col-md-4 reveal" data-aos="fade-up" data-aos-delay="200">
+          <div class="card h-100 shadow">
+            <img src="../assets/images/image6.png" class="card-img-top" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">Finance & Comptabilité</h5>
+              <p class="card-text">
+                Comptabilité, fiscalité et analyse financière.Cette formation
+                vous apporte des compétences solides en comptabilité, fiscalité
+                et analyse financière. Vous apprendrez à enregistrer et analyser
+                ...
+              </p>
+        
+              <div class="action-buttons">
+                <a class="btn btn-pro" href="development.html"> Voir plus </a>
+        
+                <a
+                  class="btn btn-pro-outline"
+                  data-bs-toggle="collapse"
+                  href="#dev"
+                >
+                  Voir le programme
+                </a>
+              </div>
+        
+              <div class="collapse mt-2" id="finance">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Comptabilité générale</li>
+                  <li class="list-group-item">Analyse financière</li>
+                  <li class="list-group-item">Fiscalité</li>
+                  <li class="list-group-item">Gestion de trésorerie</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer-custom text-white pt-4">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <h5 class="footer-title">Coordonnées</h5>
+                    <p>📍 Avenue Brahim Roudani, El Jadida</p>
+                    <p>📞 05233-41269</p>
+                    <p>✉️ ofppt@etablissement.ma</p>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <h5 class="footer-title">Suivez-nous</h5>
+                    <a href="https://web.facebook.com/ofppt.page.officielle/?_rdc=1&_rdr#" class="social-link me-3">Facebook</a>
+                    <a href="https://x.com/OFPPT_Officiel" class="social-link me-3">X</a>
+                    <a href="https://www.instagram.com/ofppt.officiel/" class="social-link me-3">Instagram</a>
+                    <a href="https://www.linkedin.com/company/ofpptpageofficielle/" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+
+            <hr class="footer-line">
+            <p class="text-center mb-0">© 2026 OFPPT. Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script src="../assets/libs/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <script src="../assets/libs/bootstrap/script.js"></script>
+    <script src="../assets/js/search_bar.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100
+      });
+    </script>
+  </body>
+</html>

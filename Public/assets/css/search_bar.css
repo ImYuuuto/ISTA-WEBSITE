@@ -1,0 +1,63 @@
+/* for the search bar  */
+#searchSuggestions {
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+    max-height: 220px;
+    overflow-y: auto;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+#searchSuggestions .list-group-item {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+}
+
+#searchSuggestions .list-group-item:last-child {
+    border-bottom: none;
+}
+
+#searchSuggestions .list-group-item:hover {
+    background-color: #f8f9fa;
+    color: #1fa67a;
+    font-weight: 500;
+}
+
+/* Search Input */
+.search-input {
+    border-radius: 30px;
+    padding-left: 20px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.search-input:focus {
+    border-color: #2E8B57;
+    box-shadow: 0 0 0 4px rgba(46, 139, 87, 0.1);
+    background-color: #fff;
+}
+
+/* Search Button */
+.btn-search {
+    border-radius: 30px;
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #0A2540 0%, #2E8B57 100%);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-search:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #0f3458 0%, #36a366 100%);
+    color: white;
+}

@@ -1,0 +1,54 @@
+/* Dashboard-specific styles */
+.dashboard-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-top: 4px solid #2ecc71;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #2ecc71;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.info-label {
+    font-weight: 600;
+    color: #0a2540;
+}
+
+.info-value {
+    color: #2ecc71;
+    font-weight: 500;
+}
+
+.grades-table th {
+    background-color: #0a2540;
+    color: white;
+    text-align: center;
+}
+
+.grades-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.status-badge {
+    background-color: #2ecc71;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+}

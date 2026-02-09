@@ -1,0 +1,203 @@
+:root {
+    --ofppt-blue: #0a2540;
+    --ofppt-green: #1fa67a;
+    --light-bg: #f5f7fa;
+    --text-dark: #222;
+    --text-muted: #666;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.7;
+}
+
+h2,
+h5 {
+    font-weight: 600;
+}
+
+/* ================= NAVBAR ================= */
+.navbar-custom {
+    background: linear-gradient(135deg, #0A2540, #2E8B57);
+}
+
+.navbar-brand span {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.navbar-nav {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 12px;
+    border-radius: 40px;
+    backdrop-filter: blur(6px);
+}
+
+.navbar-custom .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #ffd54f;
+}
+
+.dropdown-menu {
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* ================= HEADER VIDEO ================= */
+.video-header {
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.video-header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+    filter: brightness(50%);
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeDown 1s ease-out;
+}
+
+.header-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.header-subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+/* ================= SECTIONS ================= */
+.section-title {
+    color: var(--ofppt-blue);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--ofppt-green);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* ================= ACTIVITY CARDS ================= */
+.activity-card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: white;
+    height: 100%;
+}
+
+.activity-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.activity-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.card-body {
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+    background: white;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--ofppt-green);
+    margin-bottom: 15px;
+}
+
+.card-title {
+    color: var(--ofppt-blue);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: var(--text-muted);
+}
+
+/* ================= FOOTER ================= */
+.footer-custom {
+    background: linear-gradient(135deg, #0A2540, #2E8B57);
+}
+
+.footer-title {
+    color: #2ecc71;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.social-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #2ecc71;
+    text-decoration: underline;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
