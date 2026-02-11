@@ -9,7 +9,7 @@ $db = require_once 'db.php';
 // Get input
 $input = json_decode(file_get_contents('php://input'), true);
 if (!$input) {
-    $input = $_POST;
+    $input = array_merge($_POST, $_GET);
 }
 
 // CSRF check for POST requests
@@ -54,50 +54,97 @@ if ($action === 'register') {
         exit;
     }
 
-    // Add new user
-    $id = uniqid();
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $defaultGrades = json_encode([
-        ['module' => 'HTML & CSS', 'note' => 17.5],
-        ['module' => 'Python', 'note' => 16.0],
-        ['module' => 'MySQL', 'note' => 18.0],
-        ['module' => 'PHP', 'note' => 15.5],
-        ['module' => 'JavaScript', 'note' => 16.5],
-        ['module' => 'Anglais Technique', 'note' => 17.0]
-    ]);
+    // Handle profile image upload if present
+    $profile_image = null;
+    if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['profile_image'];
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $max_size = 2 * 1024 * 1024; // 2MB
 
-    $stmt = $db->prepare("INSERT INTO users (id, fullname, email, password, role, year, filiere, grades) VALUES (?, ?, ?, ?, 'Student', '1ère année', 'Développement Digital', ?)");
+        if (in_array($file['type'], $allowed_types) && $file['size'] <= $max_size) {
+            $user_id_temp = uniqid(); // Use temp ID for filename if ID not yet generated
+            $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $filename = $user_id_temp . '_' . time() . '.' . $extension;
+            $upload_path = '../images/profiles/' . $filename;
+            $absolute_path = __DIR__ . '/' . $upload_path;
+
+            if (move_uploaded_file($file['tmp_name'], $absolute_path)) {
+                $profile_image = $upload_path;
+            }
+        }
+    }
+
+    // Add new student
+    $id = isset($user_id_temp) ? $user_id_temp : uniqid();
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    // Default modules for "Développement Digital"
+    $defaultGrades = [];
+    $filiere = "Développement Digital";
+
+    if ($filiere === "Développement Digital") {
+        $modules = [
+            'site web statique' => 3,
+            'algorithme' => 2,
+            'Poo' => 2,
+            'site web dynamique' => 3,
+            'JavaScript' => 3,
+            'PIE' => 1,
+            'CTN' => 1,
+            'metier et formation' => 1,
+            'anglais' => 1,
+            'francais' => 2,
+            'arabe' => 1,
+            'security' => 1,
+            'base de donne' => 2
+        ];
+        foreach ($modules as $m => $c) {
+            $defaultGrades[] = ['module' => $m, 'note' => 0, 'coeff' => $c];
+        }
+    }
+
+    $gradesJson = json_encode($defaultGrades);
+
+    $stmt = $db->prepare("INSERT INTO students (id, fullname, email, password, year, filiere, grades, profile_image) VALUES (?, ?, ?, ?, '1ère année', ?, ?, ?)");
     $stmt->execute([
         $id,
         htmlspecialchars($fullname),
-        filter_var($email, FILTER_SANITIZE_EMAIL),
+        $email,
         $hashedPassword,
-        $defaultGrades
+        $filiere,
+        $gradesJson,
+        $profile_image
     ]);
 
     echo json_encode(['status' => 'success', 'message' => 'Registration successful! Please login.']);
     exit;
 
 } elseif ($action === 'login') {
-    $username = trim($input['username'] ?? ''); // Can be email or name
+    $username = trim($input['username'] ?? '');
     $password = $input['password'] ?? '';
+    $userType = $input['user_type'] ?? 'Student'; // Default to student
 
-    $stmt = $db->prepare("SELECT * FROM users WHERE email = ? OR fullname = ?");
+    $table = ($userType === 'Admin') ? 'admins' : 'students';
+
+    $stmt = $db->prepare("SELECT * FROM $table WHERE email = ? OR fullname = ?");
     $stmt->execute([$username, $username]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($password, $user['password'])) {
-        // Security: Regenerate session ID
         session_regenerate_id(true);
 
-        // Decode grades for session
-        $user['grades'] = json_decode($user['grades'], true);
+        if ($userType === 'Admin') {
+            $user['role'] = $user['role'] ?? 'Admin';
+        } else {
+            $user['role'] = 'Student';
+            $user['grades'] = json_decode($user['grades'], true);
+        }
 
-        // Remove password from session
         unset($user['password']);
-
         $_SESSION['user'] = $user;
-        echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => 'user_page.php']);
+
+        $redirect = ($userType === 'Admin') ? 'admin_page.php' : 'user_page.php';
+        echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => $redirect]);
         exit;
     }
 
@@ -123,7 +170,13 @@ if ($action === 'register') {
     }
 
     session_destroy();
-    echo json_encode(['status' => 'success', 'message' => 'Logged out', 'redirect' => 'inscrire.html']);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        header('Location: ../../pages/inscrire.php');
+        exit;
+    }
+
+    echo json_encode(['status' => 'success', 'message' => 'Logged out', 'redirect' => 'inscrire.php']);
     exit;
 }
 

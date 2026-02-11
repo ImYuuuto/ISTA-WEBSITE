@@ -15,34 +15,10 @@ $page_title = "Espace Stagiaire - Tableau de Bord";
 $current_page = "user_page";
 $base_path = "../";
 $extra_css = ["inscrire.css", "user_page.css"];
-// AOS init is in footer. We need specialized logout script for this page.
+$extra_js = ["user_page.js"];
 require_once '../assets/php/csrf.php';
 $token = generate_csrf_token();
-$extra_head = '
-<script>
-window.addEventListener("load", () => {
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-            fetch("../assets/php/auth.php", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    action: "logout",
-                    csrf_token: "' . $token . '"
-                })
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === "success") {
-                    window.location.href = "inscrire.php";
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        });
-    }
-});
-</script>';
+
 
 require_once '../layout/header.php';
 ?>
@@ -59,14 +35,27 @@ require_once '../layout/header.php';
             <div class="dashboard-card text-center">
                 <?php
                 $profileImg = '../assets/images/user_page/default-profile.png';
-                $firstName = strtolower(explode(' ', $user['fullname'])[0]);
-                if (file_exists('../assets/images/user_page/' . $firstName . '.png')) {
-                    $profileImg = '../assets/images/user_page/' . $firstName . '.png';
-                } elseif (file_exists('../assets/images/user_page/' . $firstName . '.jpeg')) {
-                    $profileImg = '../assets/images/user_page/' . $firstName . '.jpeg';
+                if (!empty($user['profile_image'])) {
+                    $profileImg = '../assets/php/' . $user['profile_image'];
+                } else {
+                    $firstName = strtolower(explode(' ', $user['fullname'])[0]);
+                    if (file_exists('../assets/images/user_page/' . $firstName . '.png')) {
+                        $profileImg = '../assets/images/user_page/' . $firstName . '.png';
+                    } elseif (file_exists('../assets/images/user_page/' . $firstName . '.jpeg')) {
+                        $profileImg = '../assets/images/user_page/' . $firstName . '.jpeg';
+                    }
                 }
                 ?>
-                <img id="profileImg" src="<?php echo $profileImg; ?>" alt="Photo de profil" class="profile-img mb-3">
+                <div class="position-relative d-inline-block">
+                    <img id="profileImg" src="<?php echo $profileImg; ?>" alt="Photo de profil"
+                        class="profile-img mb-3">
+                    <button id="uploadPhotoBtn"
+                        class="btn btn-sm btn-dark position-absolute bottom-0 end-0 rounded-circle"
+                        style="margin-bottom: 20px;">
+                        <i class="bi bi-camera-fill"></i>
+                    </button>
+                    <input type="file" id="photoInput" class="d-none" accept="image/*">
+                </div>
                 <h4 id="studentName" class="mb-3"><?php echo htmlspecialchars($user['fullname']); ?></h4>
                 <p class="text-muted"><?php echo htmlspecialchars($user['role'] ?? 'Stagiaire'); ?></p>
 
@@ -78,6 +67,13 @@ require_once '../layout/header.php';
                     <li class="mb-2"><span class="info-label fw-bold">Année :</span> <span
                             class="info-value"><?php echo htmlspecialchars($user['year'] ?? 'N/A'); ?></span></li>
                     <li class="mb-3"><span class="badge bg-success">Inscription validée</span></li>
+                    <?php if ($user['role'] === 'Admin'): ?>
+                        <li class="mt-4">
+                            <a href="admin_page.php" class="btn btn-primary w-100 mb-2">
+                                <i class="bi bi-shield-lock me-2"></i>Panel Admin
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -96,20 +92,26 @@ require_once '../layout/header.php';
                             <tr>
                                 <th>Module</th>
                                 <th>Note /20</th>
+                                <th>Coefficient</th>
                                 <th>Statut</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (count($grades) > 0): ?>
-                                <?php foreach ($grades as $gradeInfo): ?>
-                                    <?php
-                                    // Handle both [module => note] and object/array formats if they changed
+                            <?php
+                            $totalPoints = 0;
+                            $totalCoeff = 0;
+                            if (count($grades) > 0):
+                                foreach ($grades as $gradeInfo):
                                     $module = $gradeInfo['module'] ?? 'Unknown';
-                                    $note = $gradeInfo['note'] ?? 0;
+                                    $note = floatval($gradeInfo['note'] ?? 0);
+                                    $coeff = floatval($gradeInfo['coeff'] ?? 1);
+                                    $totalPoints += ($note * $coeff);
+                                    $totalCoeff += $coeff;
                                     ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($module); ?></td>
                                         <td><span class="fw-bold"><?php echo htmlspecialchars($note); ?></span></td>
+                                        <td><?php echo htmlspecialchars($coeff); ?></td>
                                         <td>
                                             <?php if ($note >= 10): ?>
                                                 <span class="badge bg-success">Validé</span>
@@ -121,16 +123,19 @@ require_once '../layout/header.php';
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="3" class="text-center">Aucune note disponible</td>
+                                    <td colspan="4" class="text-center">Aucune note disponible</td>
                                 </tr>
                             <?php endif; ?>
+                            <?php
+                            $weightedAverage = $totalCoeff > 0 ? number_format($totalPoints / $totalCoeff, 2) : 'N/A';
+                            ?>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="mt-4 text-end">
-                    <p class="mb-0"><strong>Moyenne générale :</strong> <span id="averageGrade"
-                            class="text-success fs-5"><?php echo $average; ?></span>/20</p>
+                    <p class="mb-0"><strong>Moyenne générale (pondérée) :</strong> <span id="averageGrade"
+                            class="text-success fs-5"><?php echo $weightedAverage; ?></span>/20</p>
                 </div>
             </div>
 

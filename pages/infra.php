@@ -4,31 +4,14 @@ $page_title = "Infrastructure Digitale | OFPPT";
 $current_page = "formations";
 $base_path = "../";
 $extra_css = ["infra.css"];
-$extra_head = '
-<script>
-const text = `
+$extra_js = ["typewriter.js"];
+$extra_head = '<script>const TYPEWRITER_TEXT = `
 Le tronc commun en infrastructure digitale permet aux stagiaires de concevoir, administrer, optimiser, et sécuriser des architectures et infrastructures IT.
 Au cours de cette étape, qui dure une année de formation professionnelle, les stagiaires suivent une formation qui a la vocation de répondre à deux types de compétences :
 - compétences transversales :Les langues , lentreprenuriat, Compétences comportementales et sociales, Culture et techniques avancées du numérique.
 - compétences techniques : Comprendre les enjeux dun système dinformation , Concevoir un réseau informatique  , Maîtriser le fonctionnement dun système dexploitation  , Gérer une infrastructure virtualisée ,,, etc
-`;
+`;</script>';
 
-let i = 0;
-const speed = 25;
-
-function typeWriter() {
-    if (i < text.length) {
-        const typeTarget = document.getElementById("typeText");
-        if (typeTarget) {
-            typeTarget.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-}
-
-window.addEventListener("load", typeWriter);
-</script>';
 require_once '../layout/header.php';
 ?>
 

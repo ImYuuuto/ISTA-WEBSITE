@@ -4,25 +4,8 @@ $page_title = "Contact | Établissement";
 $current_page = "contact";
 $base_path = "../";
 $extra_css = ["contact.css"];
-$extra_js = ["contact_form.js"];
-$extra_head = '
-<script>
-(() => {
-  "use strict"
-  window.addEventListener("load", () => {
-    const forms = document.querySelectorAll(".needs-validation")
-    Array.from(forms).forEach(form => {
-      form.addEventListener("submit", event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-        form.classList.add("was-validated")
-      }, false)
-    })
-  })
-})()
-</script>';
+$extra_js = ["contact_form.js", "contact_validation.js"];
+
 require_once '../layout/header.php';
 ?>
 

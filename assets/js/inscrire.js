@@ -94,15 +94,13 @@ async function handleRegistration(e) {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
-    data.action = 'register';
-    data.csrf_token = CSRF_TOKEN; // Add CSRF token
+    formData.append('action', 'register');
+    formData.append('csrf_token', CSRF_TOKEN); // Add CSRF token
 
     try {
         const response = await fetch('../assets/php/auth.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: formData // Send as FormData for file support
         });
         const result = await response.json();
 

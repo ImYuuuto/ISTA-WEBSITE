@@ -65,12 +65,20 @@ require_once '../layout/header.php';
     <div id="inscription" class="card card-custom" data-aos="fade-up">
         <div class="card-body">
             <h3 class="section-title mb-4">Inscription - Nouveaux Stagiaires</h3>
-            <form class="row needs-validation" action="inscription.php" method="POST" novalidate id="inscriptionForm">
+            <form class="row needs-validation" action="inscription.php" method="POST" enctype="multipart/form-data"
+                novalidate id="inscriptionForm">
 
                 <div class="col-md-6 mb-3">
                     <div class="form-floating">
                         <input id="ins-name" class="form-control" name="fullname" placeholder="Nom et Prénom" required>
                         <label for="ins-name">Nom et Prénom</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input type="file" id="ins-photo" class="form-control" name="profile_image" accept="image/*">
+                        <label for="ins-photo">Photo de profil (Optionnel)</label>
                     </div>
                 </div>
 

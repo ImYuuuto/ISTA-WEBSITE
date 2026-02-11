@@ -40,9 +40,21 @@ echo json_encode(['status' => 'error', 'message' => 'Please fill in all required
 exit;
 }
 
-// Simulate sending an email (In a real app, use mail() or PHPMailer)
-// For now, we just return success
-// file_put_contents('messages.txt', "From: $name ($email)\nMsg: $message\n\n", FILE_APPEND);
+// Save message to database
+try {
+$db = require_once 'db.php';
+$stmt = $db->prepare("INSERT INTO messages (name, email, phone, service, message) VALUES (?, ?, ?, ?, ?)");
+$stmt->execute([
+htmlspecialchars($name),
+filter_var($email, FILTER_SANITIZE_EMAIL),
+htmlspecialchars($phone),
+htmlspecialchars($service),
+htmlspecialchars($message)
+]);
 
 echo json_encode(['status' => 'success', 'message' => 'Message sent successfully!']);
+} catch (PDOException $e) {
+http_response_code(500);
+echo json_encode(['status' => 'error', 'message' => 'Failed to save message: ' . $e->getMessage()]);
+}
 ?>

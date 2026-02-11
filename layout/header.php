@@ -57,9 +57,15 @@ $base_path = $base_path ?? '';
                             class="nav-link <?php echo ($current_page == 'formateurs') ? 'active' : ''; ?>"
                             href="<?php echo $base_path; ?>pages/formateurs.php">Formateurs</a></li>
                     <?php if (isset($_SESSION['user'])): ?>
-                        <li class="nav-item"><a
-                                class="nav-link <?php echo ($current_page == 'user_page') ? 'active' : ''; ?>"
-                                href="<?php echo $base_path; ?>pages/user_page.php">Mon Espace</a></li>
+                        <?php if (in_array($_SESSION['user']['role'], ['Admin', 'CEO'])): ?>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($current_page == 'admin_page') ? 'active' : ''; ?>"
+                                    href="<?php echo $base_path; ?>pages/admin_page.php">Dashboard Admin</a></li>
+                        <?php else: ?>
+                            <li class="nav-item"><a
+                                    class="nav-link <?php echo ($current_page == 'user_page') ? 'active' : ''; ?>"
+                                    href="<?php echo $base_path; ?>pages/user_page.php">Mon Espace</a></li>
+                        <?php endif; ?>
                     <?php else: ?>
                         <li class="nav-item"><a
                                 class="nav-link <?php echo ($current_page == 'inscrire') ? 'active' : ''; ?>"

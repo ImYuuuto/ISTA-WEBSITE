@@ -4,33 +4,16 @@ $page_title = "Développement Digital | Établissement";
 $current_page = "formations";
 $base_path = "../";
 $extra_css = ["dev.css"];
-$extra_head = '
-<script>
-const text = `
+$extra_js = ["typewriter.js"];
+$extra_head = '<script>const TYPEWRITER_TEXT = `
 Le tronc commun en Développement Digital est une étape importante pour acquérir les bases nécessaires à létude, la conception, la construction, le développement, la mise au point, la maintenance et à l’amélioration des logiciels, des applications et des sites web.
 
 Au cours de cette étape, qui dure une année de formation professionnelle, les stagiaires suivent une formation qui a la vocation de répondre à deux types de compétences :
 
 - Compétences transversales : Les langues, lentrepreneuriat, les compétences comportementales et sociales, la culture et les techniques avancées du numérique.
 - Compétences techniques : Acquérir les bases de lalgorithmique, programmer en orienté objet, développer des sites web statiques, programmer en JavaScript, développer des sites web dynamiques.
-`;
+`;</script>';
 
-let i = 0;
-const speed = 25;
-
-function typeWriter() {
-    if (i < text.length) {
-        const typeTarget = document.getElementById("typeText");
-        if (typeTarget) {
-            typeTarget.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-}
-
-window.addEventListener("load", typeWriter);
-</script>';
 require_once '../layout/header.php';
 ?>
 
