@@ -143,52 +143,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // Reinscription - similar logic if needed, or just redirect to same auth for now
     // For this demo, we'll focus on new inscription.
 
-    // Forgot password form
-    const forgotForm = document.getElementById('forgotPasswordForm');
-    if (forgotForm) {
-        forgotForm.addEventListener('submit', handleForgotPassword);
-    }
 });
-
-async function handleForgotPassword(e) {
-    e.preventDefault();
-    const email = document.getElementById('forgot-email').value.trim();
-    const errorEl = document.getElementById('forgotError');
-    const successEl = document.getElementById('forgotSuccess');
-    const btnText = document.getElementById('forgotBtnText');
-    const btnSpinner = document.getElementById('forgotBtnSpinner');
-
-    errorEl.style.display = 'none';
-    successEl.style.display = 'none';
-    btnSpinner.style.display = 'inline-block';
-    btnText.textContent = 'Envoi en cours...';
-
-    try {
-        const response = await fetch('../assets/php/auth.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'forgot_password',
-                email,
-                csrf_token: typeof CSRF_TOKEN !== 'undefined' ? CSRF_TOKEN : ''
-            })
-        });
-        const result = await response.json();
-
-        if (result.status === 'success') {
-            successEl.textContent = result.message;
-            successEl.style.display = 'block';
-            document.getElementById('forgot-email').value = '';
-        } else {
-            errorEl.textContent = result.message;
-            errorEl.style.display = 'block';
-        }
-    } catch (err) {
-        console.error(err);
-        errorEl.textContent = 'Une erreur est survenue. Veuillez réessayer.';
-        errorEl.style.display = 'block';
-    } finally {
-        btnSpinner.style.display = 'none';
-        btnText.textContent = 'Envoyer le lien';
-    }
-}
+

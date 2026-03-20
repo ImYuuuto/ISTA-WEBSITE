@@ -48,10 +48,7 @@ require_once '../layout/header.php';
                     <label for="login-password">Mot de passe</label>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <a class="forgot-link-icon" href="#" id="forgotPasswordLink" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal"><i class="bi bi-lock-fill me-1"></i> Oublié ?</a>
-                </div>
-
+                <!-- Forgot password link removed -->
                 <div id="loginError" class="alert alert-danger mb-3" style="display: none;">
                     Identifiant ou mot de passe incorrect.
                 </div>
@@ -179,32 +176,7 @@ require_once '../layout/header.php';
         </div>
     </div>
 
-    <!-- Forgot Password Modal -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title" id="forgotPasswordModalLabel"><i class="bi bi-envelope me-2"></i>Mot de passe oublié</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted mb-3">Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.</p>
-                    <form id="forgotPasswordForm">
-                        <div class="form-floating mb-3">
-                            <input type="email" id="forgot-email" class="form-control" name="email" placeholder="Email" required>
-                            <label for="forgot-email">Adresse email</label>
-                        </div>
-                        <div id="forgotError" class="alert alert-danger mb-2" style="display: none;"></div>
-                        <div id="forgotSuccess" class="alert alert-success mb-2" style="display: none;"></div>
-                        <button type="submit" class="btn btn-custom w-100 py-2">
-                            <span id="forgotBtnText">Envoyer le lien</span>
-                            <span id="forgotBtnSpinner" class="spinner-border spinner-border-sm ms-2" style="display: none;"></span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- Forgot Password Modal Removed -->
 
 </main>
 

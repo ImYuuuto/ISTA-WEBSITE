@@ -123,18 +123,7 @@ select.form-select:focus {
     box-shadow: 0 0 5px rgba(39, 174, 96, 0.5);
 }
 
-/* Forgot password link */
-.forgot-link-icon {
-    display: block;
-    font-weight: 500;
-    text-decoration: none;
-    color: #0a2540;
-    transition: all 0.3s ease;
-}
 
-.forgot-link-icon:hover {
-    color: #27ae60;
-}
 
 /* ================= FOOTER ================= */
 .footer-custom {
