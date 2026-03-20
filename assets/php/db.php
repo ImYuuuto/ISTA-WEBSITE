@@ -33,6 +33,18 @@ try {
                 $db->exec("ALTER TABLE students ADD COLUMN profile_image VARCHAR(255) DEFAULT NULL");
             }
         }
+        // Create password_reset_tokens table if missing (for forgot password)
+        if (!in_array('password_reset_tokens', $tables)) {
+            $db->exec("CREATE TABLE password_reset_tokens (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                email VARCHAR(255) NOT NULL,
+                token VARCHAR(64) NOT NULL UNIQUE,
+                expires_at DATETIME NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                INDEX idx_token (token),
+                INDEX idx_email (email)
+            ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci");
+        }
     }
 
 } catch (PDOException $e) {

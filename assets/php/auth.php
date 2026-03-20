@@ -46,8 +46,8 @@ if ($action === 'register') {
         exit;
     }
 
-    // Check if email exists
-    $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
+    // Check if email exists in students table
+    $stmt = $db->prepare("SELECT id FROM students WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
         echo json_encode(['status' => 'error', 'message' => 'Email already registered.']);
@@ -149,6 +149,80 @@ if ($action === 'register') {
     }
 
     echo json_encode(['status' => 'error', 'message' => 'Invalid credentials.']);
+    exit;
+
+} elseif ($action === 'forgot_password') {
+    $email = trim($input['email'] ?? '');
+
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['status' => 'error', 'message' => 'Veuillez entrer une adresse email valide.']);
+        exit;
+    }
+
+    // Check if email exists in students (students can reset; admins would need separate flow)
+    $stmt = $db->prepare("SELECT id FROM students WHERE email = ?");
+    $stmt->execute([$email]);
+    if (!$stmt->fetch()) {
+        // Don't reveal if email exists - same message for security
+        echo json_encode(['status' => 'success', 'message' => 'Si cet email est enregistré, vous recevrez un lien de réinitialisation.']);
+        exit;
+    }
+
+    // Delete any existing tokens for this email
+    $stmt = $db->prepare("DELETE FROM password_reset_tokens WHERE email = ?");
+    $stmt->execute([$email]);
+
+    $token = bin2hex(random_bytes(32));
+    $expiresAt = date('Y-m-d H:i:s', strtotime('+1 hour'));
+
+    $stmt = $db->prepare("INSERT INTO password_reset_tokens (email, token, expires_at) VALUES (?, ?, ?)");
+    $stmt->execute([$email, $token, $expiresAt]);
+
+    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
+    $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '', 3), '/');
+    $resetLink = $baseUrl . $basePath . '/pages/reset_password.php?token=' . $token;
+
+    require_once __DIR__ . '/mail_helper.php';
+    if (sendPasswordResetEmail($email, $resetLink)) {
+        echo json_encode(['status' => 'success', 'message' => 'Un email de réinitialisation a été envoyé à votre adresse.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Impossible d\'envoyer l\'email. Vérifiez la configuration du serveur.']);
+    }
+    exit;
+
+} elseif ($action === 'reset_password') {
+    $token = trim($input['token'] ?? '');
+    $newPassword = $input['password'] ?? '';
+
+    if (empty($token) || empty($newPassword)) {
+        echo json_encode(['status' => 'error', 'message' => 'Token ou mot de passe manquant.']);
+        exit;
+    }
+
+    if (strlen($newPassword) < 8) {
+        echo json_encode(['status' => 'error', 'message' => 'Le mot de passe doit contenir au moins 8 caractères.']);
+        exit;
+    }
+
+    $stmt = $db->prepare("SELECT email FROM password_reset_tokens WHERE token = ? AND expires_at > NOW()");
+    $stmt->execute([$token]);
+    $row = $stmt->fetch();
+
+    if (!$row) {
+        echo json_encode(['status' => 'error', 'message' => 'Lien invalide ou expiré. Demandez une nouvelle réinitialisation.']);
+        exit;
+    }
+
+    $email = $row['email'];
+    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+    $stmt = $db->prepare("UPDATE students SET password = ? WHERE email = ?");
+    $stmt->execute([$hashedPassword, $email]);
+
+    $stmt = $db->prepare("DELETE FROM password_reset_tokens WHERE token = ?");
+    $stmt->execute([$token]);
+
+    echo json_encode(['status' => 'success', 'message' => 'Mot de passe mis à jour. Vous pouvez vous connecter.', 'redirect' => 'inscrire.php']);
     exit;
 
 } elseif ($action === 'logout') {
